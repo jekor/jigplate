@@ -1,0 +1,45 @@
+Jigplate
+
+= Usage =
+
+jigplate [template ...]
+
+Jigplate takes data from stdin in the form of JSON and template files as arguments.
+
+= Examples =
+
+== Object ==
+
+data:      {"name": "hi", "title": "Welcome"}
+
+templates: <li><a href="/article/{name}">{title}</a></li>
+
+result:    <li><a href="/article/hi">Welcome</a></li>
+
+== Array ==
+
+data:      [{"name": "hi",    "title": "Welcome"},
+            {"name": "intro", "title": "Introduction"}]
+
+templates: <li><a href="/article/{name}">{title}</a></li>
+
+result:    <li><a href="/article/hi">Welcome</a></li>
+           <li><a href="/article/intro">Introduction</a></li>
+
+== Nesting ==
+
+data:      {"articles": [{"name": "hi",    "title": "Welcome"},
+                         {"name": "intro", "title": "Introduction"}]}
+
+templates: <li><a href="/article/{name}">{title}</a></li>
+
+           <h2>Articles</h2>
+           <ul>
+             {articles}
+           </ul>
+
+result:    <h2>Articles</h2>
+           <ul>
+             <li><a href="/article/hi">Welcome</a></li>
+             <li><a href="/article/intro">Introduction</a></li>
+           </ul>

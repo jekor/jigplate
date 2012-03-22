@@ -1,0 +1,28 @@
+Name:          jigplate
+Version:       0.1.0
+Cabal-Version: >= 1.2
+License:       GPL
+License-File:  COPYING
+Copyright:     2012 Chris Forno
+Author:        Chris Forno (jekor)
+Maintainer:    jekor@jekor.com
+Stability:     experimental
+Bug-Reports:   jekor@jekor.com
+Homepage:      https://github.com/jekor/jigplate
+Package-URL:   https://github.com/jekor/jigplate/zipball/master
+Category:      Text
+Synopsis:      pattern-matching, composable templates
+Description:   pattern-matching, composable templates
+Tested-With:   GHC == 7.0.2
+Build-Type:    Custom
+
+Executable jigplate
+  Main-Is:       jigplate.hs
+  Build-Depends: aeson >= 0.6,
+                 base >= 4,
+                 bytestring,
+                 parsec >= 3,
+                 text,
+                 unordered-containers,
+                 vector
+  GHC-Options:   -Wall -fno-warn-type-defaults -O2

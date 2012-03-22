@@ -2,6 +2,9 @@ BIN=jigplate
 
 all : $(BIN)
 
+install : $(BIN)
+	cabal install
+
 dist/setup-config : $(BIN).cabal
 	cabal configure
 

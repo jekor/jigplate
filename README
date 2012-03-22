@@ -10,7 +10,7 @@ Jigplate takes data from stdin in the form of JSON and template files as argumen
 
 == Object ==
 
-Objects with match the first template that has slots for each of its keys.
+Objects will match the first template that has slots for each of its keys.
 
 data:      {"name": "hi", "title": "Welcome"}
 

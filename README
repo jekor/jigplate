@@ -1,4 +1,4 @@
-Jigplate
+Jigplate - Logicless, Language-Agnostic, Pattern-Matching Templates
 
 = Usage =
 
@@ -10,13 +10,19 @@ Jigplate takes data from stdin in the form of JSON and template files as argumen
 
 == Object ==
 
+Objects with match the first template that has slots for each of its keys.
+
 data:      {"name": "hi", "title": "Welcome"}
 
-templates: <li><a href="/article/{name}">{title}</a></li>
+templates: <li><a href="/article/{name}">{title}</a></li> (article-item.html)
 
 result:    <li><a href="/article/hi">Welcome</a></li>
 
+$ echo '{"name": "hi", "title": "Welcome"}' | jigplate template/article-item.html
+
 == Array ==
+
+Arrays will concatenate their contents.
 
 data:      [{"name": "hi",    "title": "Welcome"},
             {"name": "intro", "title": "Introduction"}]
@@ -26,7 +32,11 @@ templates: <li><a href="/article/{name}">{title}</a></li>
 result:    <li><a href="/article/hi">Welcome</a></li>
            <li><a href="/article/intro">Introduction</a></li>
 
+$ echo '[{"name": "hi", "title": "Welcome"}, {"name": "intro", "title": "Introduction"}]' | jigplate template/article-item.html
+
 == Nesting ==
+
+Nesting is done in the data, not in the templates.
 
 data:      {"articles": [{"name": "hi",    "title": "Welcome"},
                          {"name": "intro", "title": "Introduction"}]}
@@ -43,3 +53,5 @@ result:    <h2>Articles</h2>
              <li><a href="/article/hi">Welcome</a></li>
              <li><a href="/article/intro">Introduction</a></li>
            </ul>
+
+$ echo '{"articles": [{"name": "hi", "title": "Welcome"}, {"name": "intro", "title": "Introduction"}]}' | jigplate template/article-item.html template/page.html

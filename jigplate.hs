@@ -2,7 +2,7 @@ import Control.Applicative ((*>), (<*), (<$>))
 import Data.Aeson (decode, Value(..))
 import Data.ByteString.Lazy (getContents)
 import Data.HashMap.Lazy (HashMap, lookup, keys)
-import Data.List (sort)
+import Data.List (sort, nub)
 import Data.Text (Text, pack, unpack)
 import qualified Data.Vector as V (map, toList)
 import System.Environment (getArgs)
@@ -34,7 +34,7 @@ slot :: Parser JigItem
 slot = (\s -> JigSlot s Nothing) <$> (char '{' *> many alphaNum <* char '}')
 
 slots :: JigPlate -> [String]
-slots = map slotName . filter isSlot
+slots = nub . map slotName . filter isSlot
  where isSlot (JigSlot _ _) = True
        isSlot _             = False
        slotName (JigSlot n _) = n

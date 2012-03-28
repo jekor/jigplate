@@ -2,7 +2,7 @@ import Control.Applicative ((*>), (<*), (<$>))
 import Data.Aeson (decode, Value(..))
 import Data.ByteString.Lazy (getContents)
 import Data.HashMap.Lazy (HashMap, lookup, keys)
-import Data.List (sort, nub)
+import Data.List (sort, nub, (\\))
 import Data.Text (Text, pack, unpack)
 import qualified Data.Vector as V (map, toList)
 import System.Environment (getArgs)
@@ -47,7 +47,7 @@ jig (Object obj) jps = case matchJig obj jps of
                          []     -> error "no matching templates found"
                          (jp:_) -> fillSlots jp obj
  where matchJig :: HashMap Text Value -> [JigPlate] -> [JigPlate]
-       matchJig hash = filter (\jp -> (sort $ slots jp) == (sort $ map unpack $ keys hash))
+       matchJig hash = filter (\jp -> (sort $ slots jp) \\ (sort $ map unpack $ keys hash) == [])
        fillSlots :: JigPlate -> HashMap Text Value -> JigPlate
        fillSlots [] _ = []
        fillSlots (f@(JigFragment _):x)      hash = f : fillSlots x hash

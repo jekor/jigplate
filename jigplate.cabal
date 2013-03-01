@@ -1,9 +1,9 @@
 Name:          jigplate
-Version:       0.1.1
+Version:       0.2.0
 Cabal-Version: >= 1.2
 License:       GPL
 License-File:  COPYING
-Copyright:     2012 Chris Forno
+Copyright:     2012, 2013 Chris Forno
 Author:        Chris Forno (jekor)
 Maintainer:    jekor@jekor.com
 Stability:     experimental
@@ -24,5 +24,6 @@ Executable jigplate
                  parsec >= 3,
                  text,
                  unordered-containers,
+                 utf8-string,
                  vector
   GHC-Options:   -Wall -fno-warn-type-defaults -O2

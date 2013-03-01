@@ -6,12 +6,14 @@ import Data.List (sort, nub, (\\))
 import Data.Text (Text, pack, unpack)
 import qualified Data.Vector as V (map, toList)
 import System.Environment (getArgs)
+import System.IO.UTF8 (readFile, writeFile)
+import Text.Parsec (parse)
 import Text.Parsec.Char (char, noneOf, alphaNum)
 import Text.Parsec.Combinator (many1, choice)
 import Text.Parsec.Prim (many)
-import Text.Parsec.String (Parser, parseFromFile)
+import Text.Parsec.String (Parser)
 
-import Prelude hiding (getContents, lookup)
+import Prelude hiding (getContents, readFile, writeFile, lookup)
 
 data JigItem = JigFragment String | JigSlot String (Maybe String)
 
@@ -67,11 +69,10 @@ main = do
     -- TODO: Need better JSON parse error messages.
     Nothing -> fail $ "JSON parse error"
     Just d  -> do
-      -- putStrLn (show d)
       jigplates <- mapM parseJigplateFile =<< getArgs
-      putStrLn $ showJig $ jig d jigplates
+      writeFile "/dev/stdout" $ showJig $ jig d jigplates
  where parseJigplateFile filename = do
-         jp' <- parseFromFile jigplate filename
-         case jp' of
+         s <- readFile filename
+         case parse jigplate filename s of
            Left err -> fail (show err)
            Right jp -> return jp

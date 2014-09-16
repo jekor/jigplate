@@ -96,6 +96,7 @@ Nesting is done in the data, not in the templates.
 <ul>
   {articles}
 </ul>
+```
 
 #### Command
 

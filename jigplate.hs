@@ -1,4 +1,3 @@
-import Control.Applicative ((*>), (<*), (<$>))
 import Data.Aeson (decode, Value(..))
 import Data.ByteString.Lazy (getContents)
 import Data.HashMap.Lazy (HashMap, lookup, keys)

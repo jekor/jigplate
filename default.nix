@@ -1,7 +1,16 @@
-{ buildLocalCabal ? (import <nixpkgs> {}).haskellPackages.buildLocalCabal
-, src ? ./.
+{ mkDerivation, aeson, base, bytestring, parsec, stdenv, text
+, unordered-containers, vector
 }:
-
-{
-  build = buildLocalCabal src "jigplate";
+mkDerivation {
+  pname = "jigplate";
+  version = "0.2.2";
+  src = ./.;
+  isLibrary = false;
+  isExecutable = true;
+  executableHaskellDepends = [
+    aeson base bytestring parsec text unordered-containers vector
+  ];
+  homepage = "https://github.com/jekor/jigplate";
+  description = "pattern-matching, composable templates";
+  license = "MIT";
 }

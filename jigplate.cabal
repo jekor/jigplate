@@ -1,5 +1,5 @@
 Name:          jigplate
-Version:       0.2.1
+Version:       0.2.2
 Cabal-Version: >= 1.2
 License:       MIT
 License-File:  LICENSE
@@ -13,7 +13,7 @@ Package-URL:   https://github.com/jekor/jigplate/zipball/master
 Category:      Text
 Synopsis:      pattern-matching, composable templates
 Description:   pattern-matching, composable templates
-Tested-With:   GHC == 7.4.1
+Tested-With:   GHC == 7.10.2
 Build-Type:    Simple
 
 Executable jigplate

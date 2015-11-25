@@ -113,3 +113,13 @@ $ echo '{"articles": [{"name": "hi", "title": "Welcome"}, {"name": "intro", "tit
   <li><a href="/article/intro">Introduction</a></li>
 </ul>
 ```
+
+# Building
+
+I build jigplate with [Nix](http://nixos.org/nix/) to try to ensure reproducible builds:
+
+```
+nix-build dev.nix
+```
+
+`default.nix` is for inclusion in a top-level file (such as `all-packages.nix`). `dev.nix` builds jigplate with a fixed version of nixpkgs, providing stability at the cost of inflating the nix store.

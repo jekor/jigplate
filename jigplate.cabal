@@ -1,5 +1,5 @@
 Name:          jigplate
-Version:       0.2.0
+Version:       0.2.1
 Cabal-Version: >= 1.2
 License:       MIT
 License-File:  LICENSE
@@ -24,6 +24,5 @@ Executable jigplate
                  parsec >= 3,
                  text,
                  unordered-containers,
-                 utf8-string,
                  vector
   GHC-Options:   -Wall -fno-warn-type-defaults -O2

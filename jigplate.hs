@@ -6,14 +6,14 @@ import Data.List (sort, nub, (\\))
 import Data.Text (Text, pack, unpack)
 import qualified Data.Vector as V (map, toList)
 import System.Environment (getArgs)
-import System.IO.UTF8 (readFile, writeFile)
+import System.IO (stdout, hSetEncoding, utf8, hPutStr, openFile, IOMode(..), hGetContents)
 import Text.Parsec (parse)
 import Text.Parsec.Char (char, noneOf, alphaNum)
 import Text.Parsec.Combinator (many1, choice)
 import Text.Parsec.Prim (many)
 import Text.Parsec.String (Parser)
 
-import Prelude hiding (getContents, readFile, writeFile, lookup)
+import Prelude hiding (getContents, lookup)
 
 data JigItem = JigFragment String | JigSlot String (Maybe String)
 
@@ -70,9 +70,14 @@ main = do
     Nothing -> fail $ "JSON parse error"
     Just d  -> do
       jigplates <- mapM parseJigplateFile =<< getArgs
-      writeFile "/dev/stdout" $ showJig $ jig d jigplates
+      hSetEncoding stdout utf8
+      hPutStr stdout $ showJig $ jig d jigplates
  where parseJigplateFile filename = do
-         s <- readFile filename
+         s <- readFile' filename
          case parse jigplate filename s of
            Left err -> fail (show err)
            Right jp -> return jp
+       readFile' filename = do
+         h <- openFile filename ReadMode
+         hSetEncoding h utf8
+         hGetContents h

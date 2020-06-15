@@ -11,6 +11,6 @@ mkDerivation {
     aeson base bytestring parsec text unordered-containers vector
   ];
   homepage = "https://github.com/jekor/jigplate";
-  description = "pattern-matching, composable templates";
+  description = "logicless, language-agnostic, pattern-matching templates";
   license = "MIT";
 }

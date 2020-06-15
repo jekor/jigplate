@@ -1,3 +1,2 @@
-/dist
-/jigplate
-/cabal-dev
+/.envrc
+/result

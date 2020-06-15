@@ -24,7 +24,7 @@ Objects will match the first template that has slots for each of its keys.
 
 ```HTML
 <li><a href="/article/{name}">{title}</a></li>
-``` 
+```
 
 #### Command
 
@@ -118,8 +118,6 @@ $ echo '{"articles": [{"name": "hi", "title": "Welcome"}, {"name": "intro", "tit
 
 I build jigplate with [Nix](http://nixos.org/nix/) to try to ensure reproducible builds:
 
+```ShellSession
+nix build
 ```
-nix-build dev.nix
-```
-
-`default.nix` is for inclusion in a top-level file (such as `all-packages.nix`). `dev.nix` builds jigplate with a fixed version of nixpkgs, providing stability at the cost of inflating the nix store.

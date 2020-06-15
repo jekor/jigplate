@@ -1,17 +1,15 @@
-BIN=jigplate
-DIST=dist/build/$(BIN)/$(BIN)
+APP=jigplate
+BIN=dist/build/$(APP)/$(APP)
 
 all : $(BIN)
 
-install : $(DIST)
-	cabal install
+dist/setup-config : $(APP).cabal
+	runhaskell Setup.hs configure
 
-$(BIN) : $(DIST)
-	cp $< $@
-
-dist/setup-config : $(BIN).cabal
-	cabal configure
-
-$(DIST) : dist/setup-config $(BIN).hs
-	cabal build
+$(BIN) : dist/setup-config $(APP).hs
+	runhaskell Setup.hs build
 	@touch $@ # cabal doesn't always update the build (if it doesn't need to)
+
+.PHONY : clean
+clean :
+	-rm -rf dist

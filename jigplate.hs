@@ -7,9 +7,9 @@ import qualified Data.Vector as V (map, toList)
 import System.Environment (getArgs)
 import System.IO (stdout, hSetEncoding, utf8, hPutStr, openFile, IOMode(..), hGetContents)
 import Text.Parsec (parse)
-import Text.Parsec.Char (char, noneOf, alphaNum)
-import Text.Parsec.Combinator (many1, choice)
-import Text.Parsec.Prim (many)
+import Text.Parsec.Char (char, anyChar, alphaNum)
+import Text.Parsec.Combinator (many1, manyTill, choice, eof, lookAhead)
+import Text.Parsec.Prim (many, try)
 import Text.Parsec.String (Parser)
 
 import Prelude hiding (getContents, lookup)
@@ -25,10 +25,10 @@ showJig ((JigSlot n Nothing):x)  = "{" ++ n ++ "}" ++ showJig x
 showJig ((JigSlot _ (Just s)):x) = s ++ showJig x
 
 jigplate :: Parser JigPlate
-jigplate = many (choice [fragment, slot])
+jigplate = many (choice [slot, fragment])
 
 fragment :: Parser JigItem
-fragment = JigFragment <$> many1 (noneOf "{")
+fragment = JigFragment <$> ((:) <$> anyChar <*> manyTill anyChar (choice [try (lookAhead slot) >> return (), eof]))
 
 -- I'm not going to support all valid JSON strings, at least not yet.
 slot :: Parser JigItem
